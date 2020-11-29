@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,74 +11,131 @@ namespace NodeLink
     class Program
     {
         // Node functions
-        static void Print (Node<int>p)
+        static void Print(Node<int> p)
         {
-            throw new NotImplementedException();
+            Console.Write("[");
+            if (p != null)
+            {
+                Console.Write(p.GetValue());
+                p = p.GetNext();
+            }
+            while (p != null)
+            {
+                Console.Write($", {p.GetValue()}");
+                p = p.GetNext();
+            }
+            Console.Write("]");
         }
-        static Node<int> Generate_Nodes (int count)
+        static Node<int> Generate_Nodes(int count)
         {
             Random rnd = new Random();
             Node<int> first = new Node<int>(rnd.Next(30) + 1);
             Node<int> last = first;
-            for (int i =1; i < count; i++)
+            for (int i = 1; i < count; i++)
             {
-                last.SetNext(new Node<int>( rnd.Next (30) + 1));
+                last.SetNext(new Node<int>(rnd.Next(30) + 1));
                 last = last.GetNext();
             }
             return first;
         }
-        static int Length (Node<int> p)
+        static int Length(Node<int> p)
         {
-            // find how many nodes after p
-            throw new NotImplementedException();
+            int count = 0;
+            while (p != null)
+            {
+                count++;
+                p = p.GetNext();
+            }
+            return count;
         }
         static Node<int> GetLast(Node<int> p)
         {
-            //finds the last node in linked Nodes
-            throw new NotImplementedException();
+            while (p != null)
+            {
+                if (p.GetNext() == null)
+                    return p;
+                p = p.GetNext();
+            }
+            return null;
         }
-        static bool Found (Node<int> first, int x)
+        static bool Found(Node<int> first, int x)
         {
-            //finds if x is in first
-            throw new NotImplementedException();
+            while(first != null)
+            {
+                if (first.GetValue() == x) return true;
+                first = first.GetNext();
+            }
+            return false;
         }
-        static bool Count (Node<int> first, int number)
+        static int Count(Node<int> first, int number)
         {
-            //counts how many times the in number appears in the Linked Node List
-            throw new NotImplementedException();
+            int count = 0;
+            while (first != null)
+            {
+                if (first.GetValue() == number)
+                    count++;
+                first = first.GetNext();
+            }
+            return count;
         }
 
-        public Node<int> FindBefore (Node<int> top, Node<int> p)
+        public Node<int> FindBefore(Node<int> top, Node<int> p)
         {
-            // returns the node before p
-            //top is the first
-            throw new NotImplementedException();
+            while (p != null)
+            {
+                if (top.GetNext() == p)
+                    return top;
+                top = top.GetNext();
+            }
+            return null;
         }
-        public int Sum (Node<int> first)
+        public int Sum(Node<int> first)
         {
-            // returns the sum of nodes in linked nodes
-            throw new NotImplementedException();
+            int sum = 0;
+            while (first != null)
+            {
+                sum += first.GetValue();
+                first = first.GetNext();
+            }
+            return sum;
         }
-        public double GetAverage (Node<int>first)
+        public double GetAverage(Node<int> first)
         {
-            // returns the average of all nodes
-            throw new NotImplementedException();
+            int count = 0;
+            int sum = 0;
+            while (first != null)
+            {
+                sum += first.GetValue();
+                count++;
+                first = first.GetNext();
+            }
+            return sum / count;
         }
-        static bool IsSorted (Node<int> p)
+        static bool IsSorted(Node<int> p)
         {
-            // checks and returns wether nodes are sorted or not
-            throw new NotImplementedException();
+            bool flag = true;
+            while (p != null)
+            {
+                if (p.GetValue() > p.GetNext().GetValue())
+                    flag = false;
+            }
+            return flag;
         }
         public static Node<int> Prev (Node<int> first, Node<int> p)
         {
-            throw new NotImplementedException();
+            while(first != null)
+            {
+                if(first.GetNext() == p)
+                    return first;
+                first = first.GetNext();
+            }
+            return null;
         }
         
     
       
         static void Main(string[] args)
         {
-           
             Node<int> first = Generate_Nodes(12);
             Print(first);
             Console.ReadKey();
